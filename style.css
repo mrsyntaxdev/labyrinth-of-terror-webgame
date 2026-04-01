@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Roboto:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    background: #000;
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    user-select: none;
+    transition: box-shadow 0.3s ease; /* Smooth pulse when monster is near */
+}
+
+#ui-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(40, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.95) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    pointer-events: all;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.hidden {
+    display: none !important;
+    opacity: 0;
+    pointer-events: none;
+}
+
+h1 {
+    font-family: 'Creepster', cursive;
+    font-size: 6rem;
+    margin-bottom: 20px;
+    letter-spacing: 8px;
+    text-shadow: 0 0 30px rgba(255, 0, 0, 0.8), 0 0 60px rgba(255, 0, 0, 0.5);
+    animation: pulse-title 3s ease-in-out infinite;
+}
+
+@keyframes pulse-title {
+    0%, 100% { text-shadow: 0 0 30px rgba(255, 0, 0, 0.8), 0 0 60px rgba(255, 0, 0, 0.5); }
+    50% { text-shadow: 0 0 50px rgba(255, 0, 0, 1), 0 0 100px rgba(255, 0, 0, 0.7); }
+}
+
+.subtitle {
+    font-family: 'Creepster', cursive;
+    font-size: 2.5rem;
+    color: #ff0000;
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.9);
+    margin-bottom: 30px;
+    animation: flicker 2s ease-in-out infinite;
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+    70% { opacity: 0.4; }
+    85% { opacity: 0.8; }
+}
+
+.death-text {
+    color: #ff0000;
+    text-shadow: 0 0 30px rgba(255, 0, 0, 0.8), 0 0 60px rgba(255, 0, 0, 0.5);
+    animation: pulse-death 2s ease-in-out infinite;
+}
+
+@keyframes pulse-death {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.victory-text {
+    color: #00ff88;
+    text-shadow: 0 0 30px rgba(0, 255, 136, 0.8), 0 0 60px rgba(0, 255, 136, 0.5);
+    animation: glow-victory 2s ease-in-out infinite;
+}
+
+@keyframes glow-victory {
+    0%, 100% { text-shadow: 0 0 30px rgba(0, 255, 136, 0.8), 0 0 60px rgba(0, 255, 136, 0.5); }
+    50% { text-shadow: 0 0 50px rgba(0, 255, 136, 1), 0 0 100px rgba(0, 255, 136, 0.7); }
+}
+
+p {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    color: #bbb;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+button {
+    background: transparent;
+    border: 2px solid #ff0000;
+    color: #ff0000;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 3px;
+    font-family: 'Creepster', cursive;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+button:hover {
+    background: #ff0000;
+    color: #000;
+    box-shadow: 0 0 40px rgba(255, 0, 0, 1);
+    transform: scale(1.05);
+}
+
+.controls-hint {
+    margin-top: 40px;
+    color: #888;
+    font-size: 1rem;
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+}
+
+#hud {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+}
+
+#crosshair {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 0, 0, 0.7);
+    font-size: 28px;
+    font-weight: lighter;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+}
+
+#exit-hint {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #00ff00;
+    font-family: 'Creepster', cursive;
+    font-size: 1.8rem;
+    text-shadow: 0 0 20px rgba(0, 255, 0, 0.9);
+    animation: pulse-hint 1s ease-in-out infinite;
+    pointer-events: none;
+}
+
+#health-display {
+    position: absolute !important;
+    top: 25px !important;
+    left: 30px !important;
+    display: flex !important;
+    gap: 12px !important;
+    z-index: 100 !important;
+}
+
+.heart {
+    font-size: 2.5rem;
+    animation: heartbeat 0.5s ease-in-out;
+    filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.8));
+}
+
+.heart.lost {
+    filter: grayscale(100%) brightness(30%);
+    opacity: 0.3;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+@keyframes damage-flash {
+    0%, 100% { background: transparent; }
+    50% { background: rgba(255, 0, 0, 0.5); }
+}
+
+.damage-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 0, 0, 0.5);
+    pointer-events: none;
+    z-index: 9999;
+    animation: damage-flash 0.5s ease-out;
+}
+
+#stamina-bar {
+    position: absolute !important;
+    top: 25px !important;
+    right: 30px !important;
+    width: 250px !important;
+    height: 18px !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    border: 2px solid #fff !important;
+    border-radius: 9px !important;
+    overflow: hidden !important;
+    z-index: 100 !important;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+#stamina-fill {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #00ff00, #00ff88);
+    transition: width 0.2s ease;
+}
+
+@keyframes pulse-hint {
+    0%, 100% { opacity: 1; transform: translateX(-50%) scale(1); }
+    50% { opacity: 0.7; transform: translateX(-50%) scale(1.05); }
+}
+
+/* Vignette effect for horror atmosphere */
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.85) 100%);
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* Subtle film grain effect */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 9998;
+    animation: grain-flicker 0.2s steps(4) infinite;
+}
+
+@keyframes grain-flicker {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-2%, -2%); }
+    50% { transform: translate(2%, 2%); }
+    75% { transform: translate(-2%, 2%); }
+    100% { transform: translate(2%, -2%); }
+}

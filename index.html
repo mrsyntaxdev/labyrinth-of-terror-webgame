@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labirinto do Pesadelo - Escape se Puder</title>
+    <link rel="stylesheet" href="style.css?v=2">
+    <!-- Three.js CDN - Version compatible -->
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
+          }
+        }
+    </script>
+    <link rel="icon" href="https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/skull/default/24px.svg">
+</head>
+<body>
+    <div id="ui-container">
+        <div id="start-screen" class="overlay">
+            <h1>LABIRINTO DO PESADELO</h1>
+            <p class="subtitle">Você nunca está sozinho...</p>
+            <p>Encontre a saída verdadeira antes que ELE te encontre.</p>
+            <button id="start-button">ENTRAR NO PESADELO</button>
+            <div class="controls-hint">
+                [W][A][S][D] Mover | [Shift] Correr | Mouse Olhar
+            </div>
+        </div>
+        
+        <div id="game-over-screen" class="overlay hidden">
+            <h1 class="death-text">VOCÊ MORREU</h1>
+            <p id="death-reason">O monstro te pegou.</p>
+            <button class="restart-button">RECOMENÇAR</button>
+        </div>
+
+        <div id="victory-screen" class="overlay hidden">
+            <h1 class="victory-text">VITÓRIA!</h1>
+            <p>Você escapou do labirinto.</p>
+            <button class="restart-button">JOGAR NOVAMENTE</button>
+        </div>
+
+        <div id="hud" class="hidden">
+            <div id="crosshair">+</div>
+            <div id="exit-hint" class="hidden"></div>
+            <div id="health-display">
+                <div class="heart">❤️</div>
+                <div class="heart">❤️</div>
+                <div class="heart">❤️</div>
+            </div>
+            <div id="stamina-bar">
+                <div id="stamina-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="game.js"></script>
+</body>
+</html>
